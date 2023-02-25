@@ -63,4 +63,16 @@ public class Flight {
       this.airportDepartures = airportDepartures;
       this.airplane = airplane;
    }
+
+   @Override
+   public String toString() {
+      final StringBuilder sb = new StringBuilder("project.Flight.Flight{");
+      sb.append("dateOfDepartures=").append(dateOfDepartures);
+      sb.append(", dateOfArrivals=").append(dateOfArrivals);
+      sb.append(", airportArrivals=").append(airportArrivals);
+      sb.append(", airportDepartures=").append(airportDepartures);
+      sb.append(", airplane=").append(airplane);
+      sb.append('}');
+      return sb.toString();
+   }
 }
