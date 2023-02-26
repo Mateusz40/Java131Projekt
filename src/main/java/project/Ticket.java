@@ -1,8 +1,10 @@
 package project;
 
 
+import project.Flight.AirplaneName;
 
 public class Ticket {
+    private int ticketId;
     private String ticketNumber;
     private String passengerName;
     private String passportNumber;
@@ -21,17 +23,18 @@ public class Ticket {
 
     public void buyTicket(User user) {
         Ticket ticket = new Ticket();
-        if (wallet.getBalance >= ticket.price) {
-            wallet.addTicket(ticket);
-            wallet.removeFromBalance(ticket.price);
-
+        if (user.getWallet() >= ticket.price) {
+            user.setWallet(user.getWallet() - ticket.price);
+            user.addTicket(ticket);
+        }else{
+            System.out.println("Brak środków");
         }
     }
 
 
     public void returnTicket(User user, Ticket ticket){
-            ticketWallet.removeTicket(ticket);
-            wallet.addToBalance(ticket.price);
+            user.removeTicket(ticket);
+            user.setWallet(user.getWallet() + ticket.price);
 
         }
 
@@ -46,6 +49,10 @@ public class Ticket {
         this.additionalCargo = additionalCargo;
         this.premiumSeat = premiumSeat;
         this.priorityCheckIn = priorityCheckIn;
+    }
+
+    public int getTicketId() {
+        return ticketId;
     }
 
     public String getTicketNumber() {

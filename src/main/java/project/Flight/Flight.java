@@ -3,7 +3,7 @@ package project.Flight;
 
 
 public class Flight {
-
+   int flightId;
    int dateOfDepartures;
    int dateOfArrivals;
    AirportName airportArrivals;
