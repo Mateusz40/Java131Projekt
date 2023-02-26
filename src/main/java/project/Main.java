@@ -12,7 +12,7 @@ public class Main {
 
     public static void loggingIn() {
         Scanner s = new Scanner(System.in);
-        System.out.println("Select 1 of the following actions \n Log in \n Sign up");
+        System.out.println("Select from the following actions: \n Log in \n Sign up");
         String chosenOption = s.nextLine();
         if (chosenOption.equals("Log in")) {
             System.out.println("Please insert your login");
@@ -45,7 +45,7 @@ public class Main {
         entityManager.persist(user1);
         entityManager.persist(user2);
         entityManager.getTransaction().commit();
-        loggingIn();
+        //loggingIn();
         System.out.println("Log in: " + isLoggedIn);
 
 
