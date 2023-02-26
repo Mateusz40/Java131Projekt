@@ -1,6 +1,8 @@
 package project.Flight;
 
 
+import project.Ticket;
+
 import javax.persistence.*;
 
 @Entity
@@ -19,13 +21,30 @@ public class Flight {
    @Column(name="departing_airport")
    @Enumerated(EnumType.STRING)
    AirportName airportDepartures;
+   @ManyToOne
+   @JoinColumn(name = "airplane_id")
+   private Airplane airplane;
+   @OneToOne(mappedBy = "flight")
+   private Ticket ticket;
 
-   //@OneToOne
-  // @JoinColumn(name="airplane_id")
-   private int airplaneId;
+   public int getFlightId() {
+      return flightId;
+   }
 
-   public int getAirplaneId() {
-      return airplaneId;
+   public int getDateOfDepartures() {
+      return dateOfDepartures;
+   }
+
+   public int getDateOfArrivals() {
+      return dateOfArrivals;
+   }
+
+   public AirportName getAirportArrivals() {
+      return airportArrivals;
+   }
+
+   public AirportName getAirportDepartures() {
+      return airportDepartures;
    }
 
    public int dateOfDepartures() {

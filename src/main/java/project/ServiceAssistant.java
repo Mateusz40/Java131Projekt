@@ -10,16 +10,16 @@ public class ServiceAssistant extends User{
 
 
 
-    public void delayFlight(Flight flight){
-        if(loggedIn){
-            Scanner s = new Scanner(System.in);
-            int newDate = s.nextInt();
-            flight.setDateOfDepartures(newDate);
-
-        }else {
-            System.out.println("You must be logged in on your Service Assistant account in order to perform this action");
-        }
-    }
+//    public void delayFlight(Flight flight){
+//        if(loggedIn){
+//            Scanner s = new Scanner(System.in);
+//            int newDate = s.nextInt();
+//            flight.setDateOfDepartures(newDate);
+//
+//        }else {
+//            System.out.println("You must be logged in on your Service Assistant account in order to perform this action");
+//        }
+//    }
 
 
 
@@ -32,11 +32,4 @@ public class ServiceAssistant extends User{
         super(login, password, wallet, name, surname, passportNumber, ticketWallet);
     }
 
-    public boolean isLoggedIn() {
-        return loggedIn;
-    }
-
-    public void setLoggedIn(boolean loggedIn) {
-        this.loggedIn = loggedIn;
-    }
 }

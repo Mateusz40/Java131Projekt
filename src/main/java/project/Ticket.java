@@ -2,7 +2,7 @@ package project;
 
 
 import project.Flight.AdditionalCargo;
-import project.Flight.Airplane;
+import project.Flight.Flight;
 
 import javax.persistence.*;
 import java.util.List;
@@ -13,17 +13,16 @@ public class Ticket {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="ticket_id")
     private int ticketId;
-    @ManyToMany
-    @JoinTable(
-            name = "tickets_users",
-            joinColumns = {@JoinColumn(name = "ticketId")},
-            inverseJoinColumns = {@JoinColumn(name = "userId")}
-    )
+    @OneToMany
+    @JoinColumn(name = "ticketId")
     private List<User> users;
     @Column(name="ticket_price")
     private long price;
     @Column(name="flight_number")
-    private String flightNumber;
+    private int flightNumber;
+    @OneToOne
+    @JoinColumn(name = "flight_id")
+    private Flight flight;
     @Column(name="additional_cargo")
     @Enumerated(EnumType.STRING)
     private AdditionalCargo additionalCargo;
@@ -31,9 +30,6 @@ public class Ticket {
     private boolean premium;
     @Column(name="priority_check_in")
     private boolean priorityCheckIn;
-
-    private Airplane airplane;
-
 
 
 
@@ -60,7 +56,7 @@ public class Ticket {
 
         }
 
-    public Ticket(List<User> users,long price, String flightNumber, AdditionalCargo additionalCargo, boolean premiumSeat, boolean priorityCheckIn) {
+    public Ticket(List<User> users,long price, int flightNumber, AdditionalCargo additionalCargo, boolean premiumSeat, boolean priorityCheckIn) {
         this.users = users;
         this.price = price;
         this.flightNumber = flightNumber;
@@ -77,7 +73,7 @@ public class Ticket {
         return price;
     }
 
-    public String getFlightNumber() {
+    public int getFlightNumber() {
         return flightNumber;
     }
     public AdditionalCargo isAdditionalCargo() {
@@ -96,7 +92,7 @@ public class Ticket {
         this.price = price;
     }
 
-    public void setFlightNumber(String flightNumber) {
+    public void setFlightNumber(int flightNumber) {
         this.flightNumber = flightNumber;
     }
 
