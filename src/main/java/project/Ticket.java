@@ -11,18 +11,17 @@ import java.util.List;
 public class Ticket {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="ticket_id")
-    private int ticketId;
-    @OneToMany
-    @JoinColumn(name = "ticketId")
-    private List<User> users;
+    @Column(name="id")
+    private int Id;
+    @ManyToOne
+    @JoinColumn(name = "tickets_id")
+    private User user;
     @Column(name="ticket_price")
     private long price;
     @Column(name="flight_number")
     private int flightNumber;
-    @OneToOne
-    @JoinColumn(name = "flight_id")
-    private Flight flight;
+    @OneToMany(mappedBy = "ticket")
+    private List<Flight> flight;
     @Column(name="additional_cargo")
     @Enumerated(EnumType.STRING)
     private AdditionalCargo additionalCargo;
@@ -30,8 +29,6 @@ public class Ticket {
     private boolean premium;
     @Column(name="priority_check_in")
     private boolean priorityCheckIn;
-
-
 
 
     public Ticket() {
@@ -57,8 +54,8 @@ public class Ticket {
 
         }
 
-    public Ticket(List<User> users,long price, int flightNumber, AdditionalCargo additionalCargo, boolean premiumSeat, boolean priorityCheckIn) {
-        this.users = users;
+    public Ticket(User user,long price, int flightNumber, AdditionalCargo additionalCargo, boolean premiumSeat, boolean priorityCheckIn) {
+        this.user = user;
         this.price = price;
         this.flightNumber = flightNumber;
         this.additionalCargo = additionalCargo;
@@ -66,8 +63,8 @@ public class Ticket {
         this.priorityCheckIn = priorityCheckIn;
     }
 
-    public int getTicketId() {
-        return ticketId;
+    public int getId() {
+        return Id;
     }
 
     public long getPrice() {
@@ -109,12 +106,12 @@ public class Ticket {
         this.priorityCheckIn = priorityCheckIn;
     }
 
-    public List<User> getUsers() {
-        return users;
+    public User getUser() {
+        return user;
     }
 
-    public void setUsers(List<User> users) {
-        this.users = users;
+    public void setUser(User user) {
+        this.user = user;
     }
 }
 
