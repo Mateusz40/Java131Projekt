@@ -1,13 +1,16 @@
 package project;
 
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class User {
 
+    public boolean loggedIn = false;
+
     private int userId;
 
-    private String login;
-    private String password;
+    public String login;
+    public String password;
     private long wallet;
     private String name;
     private String surname;
@@ -39,6 +42,13 @@ public class User {
         this.password = password;
     }
 
+    public boolean isLoggedIn() {
+        return loggedIn;
+    }
+
+    public void setLoggedIn(boolean loggedIn) {
+        this.loggedIn = loggedIn;
+    }
 
     public long getWallet() {
         return wallet;
@@ -83,6 +93,31 @@ public class User {
         this.passportNumber = passportNumber;
         this.ticketWallet = ticketWallet;
     }
+
+
+    public void loggingIn(User user) {
+        Scanner s = new Scanner(System.in);
+        System.out.println("Select 1 of the following actions \n Log in \n Sign up");
+        String chosenOption = s.nextLine();
+        if (chosenOption.equals("Log in")) {
+
+            System.out.println("Please insert your login");
+            String loginInput = s.nextLine();
+            System.out.println("Please insert your password");
+            String passwordInput = s.nextLine();
+            if (loginInput.equals(login) && (passwordInput.equals(password))) {
+                user.setLoggedIn(true);
+            } else {
+                System.out.println("Incorrect password or login");
+            }
+        } else if (chosenOption.equals("Sign up")) {
+
+        }else {
+            System.out.println("Incorrect action");
+        }
+    }
+
+
 
 
 
