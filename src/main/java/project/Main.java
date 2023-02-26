@@ -44,7 +44,9 @@ public class Main {
         User user2 = new User("adam@gmail.com","12345",2000,"jan","Kowalski","987654321", new ArrayList<>());
         entityManager.persist(user1);
         entityManager.persist(user2);
+        entityManager.getTransaction().commit();
         loggingIn();
+        System.out.println("Log in: " + isLoggedIn);
 
 
 
