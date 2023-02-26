@@ -24,7 +24,8 @@ public class Flight {
    @ManyToOne
    @JoinColumn(name = "airplane_id")
    private Airplane airplane;
-   @OneToOne(mappedBy = "flight")
+   @ManyToOne
+   @JoinColumn(name = "ticket")
    private Ticket ticket;
 
    public int getFlightId() {

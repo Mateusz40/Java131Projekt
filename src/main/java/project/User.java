@@ -3,6 +3,7 @@ package project;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 @Entity
@@ -24,7 +25,8 @@ public class User {
     @Column
     private String passportNumber;
     private long wallet;
-    private ArrayList<Ticket> ticketWallet;
+    @OneToMany(mappedBy = "user")
+    private List<Ticket> ticketWallet;
 
     public String getLogin() {
         return login;
@@ -38,7 +40,7 @@ public class User {
         return userId;
     }
 
-    public ArrayList<Ticket> getTicketWallet() {
+    public List<Ticket> getTicketWallet() {
         return ticketWallet;
     }
 
@@ -85,7 +87,7 @@ public class User {
         this.passportNumber = passportNumber;
     }
 
-    public User(String login, String password, long wallet, String name, String surname, String passportNumber, ArrayList<Ticket> ticketWallet) {
+    public User(String login, String password, long wallet, String name, String surname, String passportNumber, List<Ticket> ticketWallet) {
         this.login = login;
         this.password = password;
         this.wallet = wallet;
