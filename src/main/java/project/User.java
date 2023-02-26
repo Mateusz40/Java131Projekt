@@ -1,5 +1,6 @@
 package project;
 
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -23,7 +24,7 @@ public class User {
     @Column
     private String passportNumber;
     private long wallet;
-    private final ArrayList<Ticket> ticketWallet;
+    private ArrayList<Ticket> ticketWallet;
 
     public String getLogin() {
         return login;
@@ -94,7 +95,8 @@ public class User {
         this.ticketWallet = ticketWallet;
     }
 
-
+    public User() {
+    }
 
     public void addTicket(Ticket ticket){
         ticketWallet.add(ticket);
