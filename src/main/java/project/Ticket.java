@@ -53,8 +53,10 @@ public class Ticket {
     }
 
     public void returnTicket(User user, Ticket ticket){
-            user.removeTicket(ticket);
-            user.setWallet(user.getWallet() + ticket.price);
+
+        user.removeTicket(ticket);
+        user.setWallet(user.getWallet() + ticket.price);
+
 
         }
 
