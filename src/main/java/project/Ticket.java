@@ -1,20 +1,41 @@
 package project;
 
 
-import project.Flight.AirplaneName;
+import project.Flight.AdditionalCargo;
+import project.Flight.Airplane;
 
+import javax.persistence.*;
+import java.util.List;
+
+@Entity
 public class Ticket {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name="ticket_id")
     private int ticketId;
-    private String ticketNumber;
-    private String passengerName;
-    private String passportNumber;
+    @ManyToMany
+    @JoinTable(
+            name = "tickets_users",
+            joinColumns = {@JoinColumn(name = "ticketId")},
+            inverseJoinColumns = {@JoinColumn(name = "userId")}
+    )
+    private List<User> users;
+    @Column(name="ticket_price")
     private long price;
+    @Column(name="flight_number")
     private String flightNumber;
-    private AirplaneName airplaneName;
-    private int seatNumber;
-    private boolean additionalCargo;
-    private boolean premiumSeat;
+    @Column(name="additional_cargo")
+    @Enumerated(EnumType.STRING)
+    private AdditionalCargo additionalCargo;
+    @Column(name="premium")
+    private boolean premium;
+    @Column(name="priority_check_in")
     private boolean priorityCheckIn;
+
+    private Airplane airplane;
+
+
+
 
     public Ticket() {
     }
@@ -31,7 +52,6 @@ public class Ticket {
         }
     }
 
-
     public void returnTicket(User user, Ticket ticket){
 
         user.removeTicket(ticket);
@@ -40,33 +60,17 @@ public class Ticket {
 
         }
 
-    public Ticket(String ticketNumber, String passengerName, String passportNumber, long price, String flightNumber, AirplaneName airplaneName, int seatNumber, boolean additionalCargo, boolean premiumSeat, boolean priorityCheckIn) {
-        this.ticketNumber = ticketNumber;
-        this.passengerName = passengerName;
-        this.passportNumber = passportNumber;
+    public Ticket(List<User> users,long price, String flightNumber, AdditionalCargo additionalCargo, boolean premiumSeat, boolean priorityCheckIn) {
+        this.users = users;
         this.price = price;
         this.flightNumber = flightNumber;
-        this.airplaneName = airplaneName;
-        this.seatNumber = seatNumber;
         this.additionalCargo = additionalCargo;
-        this.premiumSeat = premiumSeat;
+        this.premium = premiumSeat;
         this.priorityCheckIn = priorityCheckIn;
     }
 
     public int getTicketId() {
         return ticketId;
-    }
-
-    public String getTicketNumber() {
-        return ticketNumber;
-    }
-
-    public String getPassengerName() {
-        return passengerName;
-    }
-
-    public String getPassportNumber() {
-        return passportNumber;
     }
 
     public long getPrice() {
@@ -76,37 +80,16 @@ public class Ticket {
     public String getFlightNumber() {
         return flightNumber;
     }
-
-    public AirplaneName getAirplaneName() {
-        return airplaneName;
-    }
-
-    public int getSeatNumber() {
-        return seatNumber;
-    }
-
-    public boolean isAdditionalCargo() {
+    public AdditionalCargo isAdditionalCargo() {
         return additionalCargo;
     }
 
-    public boolean isPremiumSeat() {
-        return premiumSeat;
+    public boolean isPremium() {
+        return premium;
     }
 
     public boolean isPriorityCheckIn() {
         return priorityCheckIn;
-    }
-
-    public void setTicketNumber(String ticketNumber) {
-        this.ticketNumber = ticketNumber;
-    }
-
-    public void setPassengerName(String passengerName) {
-        this.passengerName = passengerName;
-    }
-
-    public void setPassportNumber(String passportNumber) {
-        this.passportNumber = passportNumber;
     }
 
     public void setPrice(long price) {
@@ -117,24 +100,24 @@ public class Ticket {
         this.flightNumber = flightNumber;
     }
 
-    public void setAirplaneName(AirplaneName airplaneName) {
-        this.airplaneName = airplaneName;
-    }
-
-    public void setSeatNumber(int seatNumber) {
-        this.seatNumber = seatNumber;
-    }
-
-    public void setAdditionalCargo(boolean additionalCargo) {
+    public void setAdditionalCargo(AdditionalCargo additionalCargo) {
         this.additionalCargo = additionalCargo;
     }
 
-    public void setPremiumSeat(boolean premiumSeat) {
-        this.premiumSeat = premiumSeat;
+    public void setPremium(boolean premium) {
+        this.premium = premium;
     }
 
     public void setPriorityCheckIn(boolean priorityCheckIn) {
         this.priorityCheckIn = priorityCheckIn;
+    }
+
+    public List<User> getUsers() {
+        return users;
+    }
+
+    public void setUsers(List<User> users) {
+        this.users = users;
     }
 }
 
