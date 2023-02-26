@@ -1,28 +1,21 @@
 package project.Flight;
 
 import javax.persistence.*;
-import java.util.List;
 
 @Entity
 public class Airplane {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name="id")
+    private int Id;
     @Column(name="airplane_id")
     private int airplaneId;
-
-    public List<Integer> getFlightNumbers() {
-        return flightNumbers;
-    }
 
     @Column(name = "airplane_model")
     @Enumerated(EnumType.STRING)
     private AirplaneName airplaneName;
     @Column(name="number_of_seats")
     private final int numberOfSeats;
-
-    @ManyToOne
-    @JoinColumn(name = "flight_number")
-    private List<Integer> flightNumbers;
 
     public int getAirplaneId() {
         return airplaneId;
