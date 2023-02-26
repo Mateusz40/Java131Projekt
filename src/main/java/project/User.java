@@ -1,18 +1,27 @@
 package project;
 
+import com.sun.istack.NotNull;
+
+import javax.persistence.*;
 import java.util.ArrayList;
-
+@Entity
 public class User {
-
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column
     private int userId;
 
+    @Column(nullable = false)
     private String login;
+    @Column(nullable = false)
     private String password;
-    private long wallet;
+    @Column
     private String name;
+    @Column
     private String surname;
+    @Column
     private String passportNumber;
-
+    private long wallet;
     private final ArrayList<Ticket> ticketWallet;
 
     public String getLogin() {
