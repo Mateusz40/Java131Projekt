@@ -46,7 +46,7 @@ public class Main {
         entityManager.persist(user2);
         entityManager.getTransaction().commit();
         loggingIn();
-        System.out.println(isLoggedIn);
+        System.out.println("Log in: " + isLoggedIn);
 
 
 
