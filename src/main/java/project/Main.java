@@ -20,6 +20,7 @@ public class Main {
             System.out.println("Please insert your password");
             String passwordInput = s.nextLine();
             User temporaryUser = loginUser(loginInput);
+
             if (temporaryUser.getPassword().equals(passwordInput)){
                 isLoggedIn = true;
             } else {
@@ -31,7 +32,6 @@ public class Main {
             System.out.println("Incorrect action");
         }
     }
-
 
     public static User loginUser(String loginInput){
         return entityManager.createQuery("from User u where u.login = :loginInput", User.class)
@@ -47,6 +47,7 @@ public class Main {
         entityManager.getTransaction().commit();
         loggingIn();
         System.out.println("Log in: " + isLoggedIn);
+
 
 
 

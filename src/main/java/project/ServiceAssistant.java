@@ -6,10 +6,6 @@ import project.Flight.Flight;
 
 public class ServiceAssistant extends User{
 
-
-
-
-
 //    public void delayFlight(Flight flight){
 //        if(loggedIn){
 //            Scanner s = new Scanner(System.in);
@@ -22,14 +18,11 @@ public class ServiceAssistant extends User{
 //    }
 
 
-
-
-
-
-
-
     public ServiceAssistant(String login, String password, long wallet, String name, String surname, String passportNumber, ArrayList<Ticket> ticketWallet) {
         super(login, password, wallet, name, surname, passportNumber, ticketWallet);
+    }
+
+    public ServiceAssistant() {
     }
 
 }
