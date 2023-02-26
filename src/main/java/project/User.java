@@ -1,13 +1,19 @@
 package project;
 
+import java.util.ArrayList;
+
 public class User {
+
+    private int userId;
 
     private String login;
     private String password;
-    private Wallet wallet;
+    private long wallet;
     private String name;
     private String surname;
     private String passportNumber;
+
+    private final ArrayList<Ticket> ticketWallet;
 
     public String getLogin() {
         return login;
@@ -15,6 +21,14 @@ public class User {
 
     public void setLogin(String login) {
         this.login = login;
+    }
+
+    public int getUserId() {
+        return userId;
+    }
+
+    public ArrayList<Ticket> getTicketWallet() {
+        return ticketWallet;
     }
 
     public String getPassword() {
@@ -25,11 +39,12 @@ public class User {
         this.password = password;
     }
 
-    public Wallet getWallet() {
+
+    public long getWallet() {
         return wallet;
     }
 
-    public void setWallet(Wallet wallet) {
+    public void setWallet(long wallet) {
         this.wallet = wallet;
     }
 
@@ -49,6 +64,8 @@ public class User {
         this.surname = surname;
     }
 
+
+
     public String getPassportNumber() {
         return passportNumber;
     }
@@ -57,13 +74,23 @@ public class User {
         this.passportNumber = passportNumber;
     }
 
-    public User(String login, String password, Wallet wallet, String name, String surname, String passportNumber) {
+    public User(String login, String password, long wallet, String name, String surname, String passportNumber, ArrayList<Ticket> ticketWallet) {
         this.login = login;
         this.password = password;
         this.wallet = wallet;
         this.name = name;
         this.surname = surname;
         this.passportNumber = passportNumber;
+        this.ticketWallet = ticketWallet;
     }
+
+
+
+    public void addTicket(Ticket ticket){
+        ticketWallet.add(ticket);
+    }
+    public void removeTicket(Ticket ticket){ticketWallet.remove(ticket);}
+
+
 }
 
