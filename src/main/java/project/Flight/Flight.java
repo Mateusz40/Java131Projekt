@@ -1,15 +1,32 @@
 package project.Flight;
 
 
+import javax.persistence.*;
 
+@Entity
 public class Flight {
+   @Id
+   @GeneratedValue(strategy = GenerationType.IDENTITY)
+   @Column(name="flight_id")
    int flightId;
+   @Column(name="date_of_departure")
    int dateOfDepartures;
+   @Column(name="date_of_arrival")
    int dateOfArrivals;
+   @Column(name="arriving_airport")
+   @Enumerated(EnumType.STRING)
    AirportName airportArrivals;
+   @Column(name="departing_airport")
+   @Enumerated(EnumType.STRING)
    AirportName airportDepartures;
-   AirplaneName airplane;
 
+   //@OneToOne
+  // @JoinColumn(name="airplane_id")
+   private int airplaneId;
+
+   public int getAirplaneId() {
+      return airplaneId;
+   }
 
    public int dateOfDepartures() {
       return dateOfDepartures;
@@ -47,32 +64,10 @@ public class Flight {
       return this;
    }
 
-   public AirplaneName airplane() {
-      return airplane;
-   }
-
-   public Flight setAirplane(AirplaneName airplane) {
-      this.airplane = airplane;
-      return this;
-   }
-
-   public Flight(int dateOfDepartures, int dateOfArrivals, AirportName airportArrivals, AirportName airportDepartures, AirplaneName airplane) {
+   public Flight(int dateOfDepartures, int dateOfArrivals, AirportName airportArrivals, AirportName airportDepartures) {
       this.dateOfDepartures = dateOfDepartures;
       this.dateOfArrivals = dateOfArrivals;
       this.airportArrivals = airportArrivals;
       this.airportDepartures = airportDepartures;
-      this.airplane = airplane;
-   }
-
-   @Override
-   public String toString() {
-      final StringBuilder sb = new StringBuilder("project.Flight.Flight{");
-      sb.append("dateOfDepartures=").append(dateOfDepartures);
-      sb.append(", dateOfArrivals=").append(dateOfArrivals);
-      sb.append(", airportArrivals=").append(airportArrivals);
-      sb.append(", airportDepartures=").append(airportDepartures);
-      sb.append(", airplane=").append(airplane);
-      sb.append('}');
-      return sb.toString();
    }
 }
