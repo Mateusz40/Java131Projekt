@@ -22,10 +22,13 @@ public class Main {
         if (chosenOption.equals("Log in")) {
             System.out.println("Please insert your login");
             String loginInput = s.nextLine();
+            if (isAlreadySignedUp(loginInput).isEmpty()){
+                System.out.println("There is no user with that email");
+                return;
+            }
             System.out.println("Please insert your password");
             String passwordInput = s.nextLine();
             User temporaryUser = loginUser(loginInput);
-
             if (temporaryUser.getPassword().equals(passwordInput)){
                 isLoggedIn = true;
             } else {
@@ -42,7 +45,7 @@ public class Main {
                 return;
             }
             if (!isAlreadySignedUp(newEmail).isEmpty()){
-                System.out.println("There already is a user with email: " + newEmail);
+                System.out.println("There is already a user with that email: " + newEmail);
                 return;
             }
             System.out.println("Enter password: ");
@@ -84,7 +87,9 @@ public class Main {
         entityManager.persist(user1);
         entityManager.persist(user2);
         entityManager.getTransaction().commit();
-        loggingIn();
+        while(!isLoggedIn) {
+            loggingIn();
+        }
         System.out.println("Log in: " + isLoggedIn);
 
 
