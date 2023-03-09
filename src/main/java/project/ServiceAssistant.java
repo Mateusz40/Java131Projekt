@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.Scanner;
 import project.Flight.Flight;
 
+import javax.persistence.Entity;
+
+@Entity
 public class ServiceAssistant extends User{
 
 //    public void delayFlight(Flight flight){
@@ -17,12 +20,10 @@ public class ServiceAssistant extends User{
 //        }
 //    }
 
+    private final UserType userType = UserType.SERVICEASSISTANT;
 
-    public ServiceAssistant(String login, String password, long wallet, String name, String surname, String passportNumber, ArrayList<Ticket> ticketWallet) {
-        super(login, password, wallet, name, surname, passportNumber, ticketWallet);
+    @Override
+    public UserType getUserType() {
+        return userType;
     }
-
-    public ServiceAssistant() {
-    }
-
 }
