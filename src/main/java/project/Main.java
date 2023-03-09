@@ -10,6 +10,8 @@ import java.util.regex.Pattern;
 public class Main {
 
     static boolean isLoggedIn = false;
+    static boolean isAdministrator = false;
+    static boolean isServiceAssistant = false;
 
     public static EntityManager entityManager = HibernateUtil.getSessionFactory().createEntityManager();
 
@@ -30,7 +32,17 @@ public class Main {
             String passwordInput = s.nextLine();
             User temporaryUser = loginUser(loginInput);
             if (temporaryUser.getPassword().equals(passwordInput)){
-                isLoggedIn = true;
+                switch (temporaryUser.getUserType()){
+                    case SERVICEASSISTANT -> {
+                        isServiceAssistant = true;
+                        isLoggedIn = true;
+                    }
+                    case ADMINISTRATOR -> {
+                        isAdministrator = true;
+                        isLoggedIn = true;
+                    }
+                    default -> isLoggedIn = true;
+                }
             } else {
                 System.out.println("Incorrect password or login");
             }
@@ -84,6 +96,14 @@ public class Main {
         entityManager.getTransaction().begin();
         User user1 = new User("jan@gmail.com","12345",2000,"jan","Kowalski","987654321", new ArrayList<>());
         User user2 = new User("adam@gmail.com","12345",2000,"jan","Kowalski","987654321", new ArrayList<>());
+        Administrator administrator = new Administrator();
+        administrator.setLogin("admin");
+        administrator.setPassword("admin");
+        ServiceAssistant serviceAssistant = new ServiceAssistant();
+        serviceAssistant.setLogin("service");
+        serviceAssistant.setPassword("service");
+        entityManager.persist(serviceAssistant);
+        entityManager.persist(administrator);
         entityManager.persist(user1);
         entityManager.persist(user2);
         entityManager.getTransaction().commit();
@@ -91,6 +111,8 @@ public class Main {
             loggingIn();
         }
         System.out.println("Log in: " + isLoggedIn);
+        System.out.println("service assistant = " + isServiceAssistant);
+        System.out.println("administator = " + isAdministrator);
 
 
 
