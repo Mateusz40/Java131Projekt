@@ -2,9 +2,7 @@ package project;
 
 
 import javax.persistence.*;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 
 @Entity
 public class User {
@@ -27,6 +25,12 @@ public class User {
     private long wallet;
     @OneToMany(mappedBy = "user")
     private List<Ticket> ticketWallet;
+    @Column
+    private final UserType userType = UserType.STANDARD;
+
+    public UserType getUserType() {
+        return userType;
+    }
 
     public String getLogin() {
         return login;
