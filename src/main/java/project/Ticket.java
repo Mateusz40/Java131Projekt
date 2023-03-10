@@ -34,16 +34,38 @@ public class Ticket {
     public Ticket() {
     }
 
+    public Ticket(User user, int flightNumber, List<Flight> flight, AdditionalCargo additionalCargo, boolean premium, boolean priorityCheckIn) {
+        this.user = user;
+        this.flightNumber = flightNumber;
+        this.flight = flight;
+        this.additionalCargo = additionalCargo;
+        this.premium = premium;
+        this.priorityCheckIn = priorityCheckIn;
+    }
 
-
-    public void buyTicket(User user) {
+    public Ticket buyTicket(User user) {
         Ticket ticket = new Ticket();
+        price = 250;
+        switch (additionalCargo){
+            case SMALL -> price += 100;
+            case MEDIUM -> price += 150;
+            case LARGE -> price += 250;
+            default -> {
+            }
+        }
+        if (premium){
+            price += 150;
+        }
+        if (priorityCheckIn){
+            price += 75;
+        }
         if (user.getWallet() >= ticket.price) {
             user.setWallet(user.getWallet() - ticket.price);
             user.addTicket(ticket);
         }else{
             System.out.println("Brak środków");
         }
+        return ticket;
     }
 
     public void returnTicket(User user, Ticket ticket){
@@ -67,9 +89,7 @@ public class Ticket {
         return Id;
     }
 
-    public long getPrice() {
-        return price;
-    }
+    public long getPrice() {return price;}
 
     public int getFlightNumber() {
         return flightNumber;

@@ -11,7 +11,6 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column
     private int userId;
-
     @Column(nullable = false)
     private String login;
     @Column(nullable = false)
@@ -22,11 +21,25 @@ public class User {
     private String surname;
     @Column
     private String passportNumber;
+    @Transient
     private long wallet;
     @OneToMany(mappedBy = "user")
     private List<Ticket> ticketWallet;
     @Column
     private final UserType userType = UserType.STANDARD;
+
+    public User(String login, String password, long wallet, String name, String surname, String passportNumber, List<Ticket> ticketWallet) {
+        this.login = login;
+        this.password = password;
+        this.wallet = wallet;
+        this.name = name;
+        this.surname = surname;
+        this.passportNumber = passportNumber;
+        this.ticketWallet = ticketWallet;
+    }
+
+    public User() {
+    }
 
     public UserType getUserType() {
         return userType;
@@ -56,7 +69,6 @@ public class User {
         this.password = password;
     }
 
-
     public long getWallet() {
         return wallet;
     }
@@ -81,8 +93,6 @@ public class User {
         this.surname = surname;
     }
 
-
-
     public String getPassportNumber() {
         return passportNumber;
     }
@@ -91,23 +101,16 @@ public class User {
         this.passportNumber = passportNumber;
     }
 
-    public User(String login, String password, long wallet, String name, String surname, String passportNumber, List<Ticket> ticketWallet) {
-        this.login = login;
-        this.password = password;
-        this.wallet = wallet;
-        this.name = name;
-        this.surname = surname;
-        this.passportNumber = passportNumber;
-        this.ticketWallet = ticketWallet;
-    }
-
-    public User() {
-    }
-
-    public void addTicket(Ticket ticket){
+    public void addTicket(Ticket ticket) {
         ticketWallet.add(ticket);
     }
-    public void removeTicket(Ticket ticket){ticketWallet.remove(ticket);}
+
+    public void removeTicket(Ticket ticket) {
+        ticketWallet.remove(ticket);
+    }
+    public void addToWallet(long credit){
+        wallet += credit;
+    }
 
     @Override
     public String toString() {
