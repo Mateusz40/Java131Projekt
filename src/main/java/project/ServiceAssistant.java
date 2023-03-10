@@ -1,27 +1,18 @@
 package project;
 
-import java.util.ArrayList;
-import java.util.Scanner;
-import project.Flight.Flight;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 
 @Entity
-public class ServiceAssistant extends User{
-
-//    public void delayFlight(Flight flight){
-//        if(loggedIn){
-//            Scanner s = new Scanner(System.in);
-//            int newDate = s.nextInt();
-//            flight.setDateOfDepartures(newDate);
-//
-//        }else {
-//            System.out.println("You must be logged in on your Service Assistant account in order to perform this action");
-//        }
-//    }
-
+public class ServiceAssistant extends User {
+    @Column
+    @Enumerated(EnumType.STRING)
     private final UserType userType = UserType.SERVICEASSISTANT;
-
+    public ServiceAssistant(){
+    }
     @Override
     public UserType getUserType() {
         return userType;
