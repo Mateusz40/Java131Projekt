@@ -112,6 +112,13 @@ public class User {
         wallet += credit;
     }
 
+    public static void returnTicket(User user, Ticket ticket){
+
+        TicketRefund.refundedTickets.add(ticket);
+        user.removeTicket(ticket);
+
+    }
+
     @Override
     public String toString() {
         return "User{" +

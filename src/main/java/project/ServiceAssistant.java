@@ -17,4 +17,6 @@ public class ServiceAssistant extends User {
     public UserType getUserType() {
         return userType;
     }
+
+
 }

@@ -1,6 +1,5 @@
 package project;
 
-
 import project.Flight.AdditionalCargo;
 import project.Flight.Flight;
 
@@ -68,13 +67,7 @@ public class Ticket {
         return ticket;
     }
 
-    public void returnTicket(User user, Ticket ticket){
 
-        user.removeTicket(ticket);
-        user.setWallet(user.getWallet() + ticket.price);
-
-
-        }
 
     public Ticket(User user,long price, int flightNumber, AdditionalCargo additionalCargo, boolean premiumSeat, boolean priorityCheckIn) {
         this.user = user;

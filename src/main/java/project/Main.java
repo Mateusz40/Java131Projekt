@@ -11,10 +11,13 @@ import java.util.regex.Pattern;
 
 public class Main {
 
+
     static boolean isLoggedIn = false;
     static boolean isAdministrator = false;
     static boolean isServiceAssistant = false;
     static User loggedUser;
+
+    static ServiceAssistant loggedService;
 
     public static EntityManager entityManager = HibernateUtil.getSessionFactory().createEntityManager();
 
@@ -157,6 +160,114 @@ public class Main {
             }
         }
     }
+
+
+    public static void serviceMenu(User loggedUser) {
+        if (isServiceAssistant) {
+            Scanner scanner = new Scanner(System.in);
+            System.out.println("Hello " + loggedUser.getName() + " \n Select an action number from the following list: \n" +
+                    " 1. Change of account data \n 2. Purchase, or return of a ticket \n 3. Account crediting \n 4. Contact a flight assistant \n " +
+                    "5. Review ticket refunds");
+            System.out.print("Action number: ");
+            int actionNumber = scanner.nextInt();
+            switch (actionNumber) {
+                case 1 -> {
+                    System.out.println("Which information would you like to change: \n Name \n Surname \n Password \n Passport");
+                    String actionType = scanner.next();
+                    switch (actionType) {
+                        case "name" -> {
+                            System.out.println("Please enter new name: ");
+                            loggedUser.setName(scanner.next());
+                            entityManager.getTransaction().begin();
+                            Query query = entityManager.createQuery("update User u set u.name = :new where u.login = :login")
+                                    .setParameter("new", loggedUser.getName())
+                                    .setParameter("login", loggedUser.getLogin());
+                            int result = query.executeUpdate();
+                            entityManager.getTransaction().commit();
+                            System.out.println("Your name was successfully changed");
+                            System.out.println("Your name is from now: " + loggedUser.getName());
+                        }
+                        case "surname" -> {
+                            System.out.println("Please enter new surname: ");
+                            loggedUser.setSurname(scanner.next());
+                            entityManager.getTransaction().begin();
+                            Query query = entityManager.createQuery("update User u set u.surname = :new where u.login = :login")
+                                    .setParameter("new", loggedUser.getSurname())
+                                    .setParameter("login", loggedUser.getLogin());
+                            entityManager.getTransaction().commit();
+                            System.out.println("Your surname was successfully changed");
+                            System.out.println("Your surname is from now: " + loggedUser.getSurname());
+                        }
+                        case "password" -> {
+                            System.out.println("Please enter new password");
+                            String temporaryPassword = scanner.next();
+                            if (loggedUser.getPassword().equals(temporaryPassword)) {
+                                System.out.println("You already have this password");
+                            } else loggedUser.setPassword(temporaryPassword);
+                            entityManager.getTransaction().begin();
+                            Query query = entityManager.createQuery("update User u set u.password = :new where u.login = :login")
+                                    .setParameter("new", loggedUser.getPassword())
+                                    .setParameter("login", loggedUser.getLogin());
+                            int result = query.executeUpdate();
+                            entityManager.getTransaction().commit();
+                            System.out.println("Your password was successfully changed");
+                            System.out.println("Your password is from now: " + loggedUser.getPassword());
+                        }
+                        case "passport" -> {
+                            System.out.println("Please enter your passport number: ");
+                            loggedUser.setPassportNumber(scanner.next());
+                            entityManager.getTransaction().begin();
+                            Query query = entityManager.createQuery("update User u set u.passportNumber = :new where u.login = :login")
+                                    .setParameter("new", loggedUser.getPassportNumber())
+                                    .setParameter("login", loggedUser.getLogin());
+                            int result = query.executeUpdate();
+                            entityManager.getTransaction().commit();
+                            System.out.println("Your passport number was successfully changed");
+                            System.out.println("Your passport number is from now: " + loggedUser.getPassportNumber());
+                        }
+                        default -> System.out.println("Declared incorrect action");
+                    }
+                }
+                case 2 -> {
+                    Ticket ticket = new Ticket();
+                    ticket.buyTicket(loggedUser);
+                }
+                case 3 -> {
+                    loggedUser.addToWallet(scanner.nextLong());
+                }
+                case 4 -> {
+
+                }
+                case 5 -> {
+                    System.out.println("Insert ticket index:");
+                    int ticketIndexPicked = scanner.nextInt();
+                    while (ticketIndexPicked > TicketRefund.refundedTickets.size()){
+                        System.out.println("Insert correct value");
+                        ticketIndexPicked = scanner.nextInt();
+                    }
+                    System.out.println("Chose whether you want to Accept refund or Deny refund");
+                    String actionType = scanner.next();
+                    switch (actionType){
+                        case "Accept refund" ->{
+                            TicketRefund.acceptTicketRefund(ticketIndexPicked);
+
+                        }
+                        case "Deny refund" ->{
+                            TicketRefund.denyTicketRefund(ticketIndexPicked);
+
+                        }
+                    }
+
+
+                }
+            }
+        }else{
+            System.out.println("Your account does not support these functions");
+        }
+    }
+
+
+
 
     public static User loginUser(String loginInput){
         return entityManager.createQuery("from User u where u.login = :loginInput", User.class)
