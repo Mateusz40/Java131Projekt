@@ -31,11 +31,25 @@ public class Ticket {
     private boolean priorityCheckIn;
 
 
+
+    public List<Flight> getFlight() {
+        return flight;
+    }
+
+    public void setFlight(List<Flight> flight) {
+        this.flight = flight;
+    }
+
     public Ticket() {
     }
 
-    public Ticket(User user, int flightNumber, List<Flight> flight, AdditionalCargo additionalCargo, boolean premium, boolean priorityCheckIn) {
+    public AdditionalCargo getAdditionalCargo() {
+        return additionalCargo;
+    }
+
+    public Ticket(User user, long price, int flightNumber, List<Flight> flight, AdditionalCargo additionalCargo, boolean premium, boolean priorityCheckIn) {
         this.user = user;
+        this.price = price;
         this.flightNumber = flightNumber;
         this.flight = flight;
         this.additionalCargo = additionalCargo;
@@ -43,30 +57,6 @@ public class Ticket {
         this.priorityCheckIn = priorityCheckIn;
     }
 
-    public Ticket buyTicket(User user) {
-        Ticket ticket = new Ticket();
-        price = 250;
-        switch (additionalCargo){
-            case SMALL -> price += 100;
-            case MEDIUM -> price += 150;
-            case LARGE -> price += 250;
-            default -> {
-            }
-        }
-        if (premium){
-            price += 150;
-        }
-        if (priorityCheckIn){
-            price += 75;
-        }
-        if (user.getWallet() >= ticket.price) {
-            user.setWallet(user.getWallet() - ticket.price);
-            user.addTicket(ticket);
-        }else{
-            System.out.println("Brak środków");
-        }
-        return ticket;
-    }
 
     public void returnTicket(User user, Ticket ticket){
 
@@ -74,15 +64,6 @@ public class Ticket {
         user.setWallet(user.getWallet() + ticket.price);
 
 
-        }
-
-    public Ticket(User user,long price, int flightNumber, AdditionalCargo additionalCargo, boolean premiumSeat, boolean priorityCheckIn) {
-        this.user = user;
-        this.price = price;
-        this.flightNumber = flightNumber;
-        this.additionalCargo = additionalCargo;
-        this.premium = premiumSeat;
-        this.priorityCheckIn = priorityCheckIn;
     }
 
     public int getId() {
