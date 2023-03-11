@@ -1,5 +1,5 @@
 package project.Flight;
 
 public enum AirportName {
-    GDN, WAW, LUT, WMI, LUZ, RDO;
+    GDN, WAW, LUT, WMI, LUZ, RDO
 }
