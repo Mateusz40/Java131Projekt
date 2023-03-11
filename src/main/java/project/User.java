@@ -1,8 +1,18 @@
 package project;
 
 
+import project.Flight.AdditionalCargo;
+import project.Flight.AirplaneName;
+import project.Flight.AirportName;
+import project.Flight.Flight;
+
 import javax.persistence.*;
+import java.time.Month;
+import java.time.MonthDay;
+import java.util.Date;
 import java.util.List;
+import java.util.Random;
+import java.util.Scanner;
 
 @Entity
 public class User {
@@ -111,6 +121,8 @@ public class User {
     public void addToWallet(long credit){
         wallet += credit;
     }
+
+
 
     @Override
     public String toString() {
