@@ -12,9 +12,9 @@ public class Flight {
    @Column(name="flight_id")
    int flightId;
    @Column(name="date_of_departure")
-   int dateOfDepartures;
+   String dateOfDepartures;
    @Column(name="date_of_arrival")
-   int dateOfArrivals;
+   String dateOfArrivals;
    @Column(name="arriving_airport")
    @Enumerated(EnumType.STRING)
    AirportName airportArrivals;
@@ -28,15 +28,34 @@ public class Flight {
    @JoinColumn(name = "ticket")
    private Ticket ticket;
 
+   public Flight() {
+   }
+
+   public Airplane getAirplane() {
+      return airplane;
+   }
+
+   public void setAirplane(Airplane airplane) {
+      this.airplane = airplane;
+   }
+
+   public Ticket getTicket() {
+      return ticket;
+   }
+
+   public void setTicket(Ticket ticket) {
+      this.ticket = ticket;
+   }
+
    public int getFlightId() {
       return flightId;
    }
 
-   public int getDateOfDepartures() {
+   public String getDateOfDepartures() {
       return dateOfDepartures;
    }
 
-   public int getDateOfArrivals() {
+   public String getDateOfArrivals() {
       return dateOfArrivals;
    }
 
@@ -48,43 +67,42 @@ public class Flight {
       return airportDepartures;
    }
 
-   public int dateOfDepartures() {
+   public String dateOfDepartures() {
       return dateOfDepartures;
    }
 
-   public Flight setDateOfDepartures(int dateOfDepartures) {
+   public Flight setDateOfDepartures(String dateOfDepartures) {
       this.dateOfDepartures = dateOfDepartures;
       return this;
    }
 
-   public int dateOfArrivals() {
+   public String dateOfArrivals() {
       return dateOfArrivals;
    }
 
-   public Flight setDateOfArrivals(int dateOfArrivals) {
+   public void setDateOfArrivals(String dateOfArrivals) {
       this.dateOfArrivals = dateOfArrivals;
-      return this;
    }
 
    public AirportName airportArrivals() {
       return airportArrivals;
    }
 
-   public Flight setAirportArrivals(AirportName airportArrivals) {
+   public void setAirportArrivals(AirportName airportArrivals) {
       this.airportArrivals = airportArrivals;
-      return this;
+   }
+
+   public void setAirportDepartures(AirportName airportDepartures) {
+      this.airportDepartures = airportDepartures;
    }
 
    public AirportName airportDepartures() {
       return airportDepartures;
    }
 
-   public Flight setAirportDepartures(AirportName airportDepartures) {
-      this.airportDepartures = airportDepartures;
-      return this;
-   }
 
-   public Flight(int dateOfDepartures, int dateOfArrivals, AirportName airportArrivals, AirportName airportDepartures) {
+
+   public Flight(String dateOfDepartures, String dateOfArrivals, AirportName airportArrivals, AirportName airportDepartures) {
       this.dateOfDepartures = dateOfDepartures;
       this.dateOfArrivals = dateOfArrivals;
       this.airportArrivals = airportArrivals;
