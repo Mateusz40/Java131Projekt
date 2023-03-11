@@ -307,6 +307,26 @@ public class Main {
         entityManager.persist(administrator);
         entityManager.persist(user1);
         entityManager.persist(user2);
+        Flight flight = new Flight(" 7 03 2023 ", " 08 03 2023 ", AirportName.GDN,AirportName.WAW);
+        Flight flight1 = new Flight(" 11 04 2023 ", " 12 04 2023 ", AirportName.WMI,AirportName.WAW);
+        Flight flight2= new Flight(" 10 03 2023 ", " 11 03 2023 ", AirportName.RDO,AirportName.GDN);
+        Flight flight3 = new Flight(" 01 03 2023 ", " 02 03 2023 ", AirportName.GDN,AirportName.RDO);
+        Flight flight4 = new Flight(" 11 01 2023 ", " 12 01 2023 ", AirportName.GDN,AirportName.LUZ);
+        Flight flight5 = new Flight(" 09 11 2023 ", " 10 11 2023 ", AirportName.LUT,AirportName.WMI);
+        Flight flight6 = new Flight(" 25 04 2023 ", " 26 04 2023 ", AirportName.GDN,AirportName.LUT);
+        Flight flight7 = new Flight(" 11 05 2023 ", " 12 05 2023 ", AirportName.LUT,AirportName.WAW);
+        Flight flight8 = new Flight(" 18 06 2023 ", " 19 06 2023 ", AirportName.RDO,AirportName.WAW);
+        Flight flight9 = new Flight(" 11 07 2023 ", " 12 07 2023 ", AirportName.GDN,AirportName.WMI);
+        entityManager.persist(flight);
+        entityManager.persist(flight1);
+        entityManager.persist(flight2);
+        entityManager.persist(flight3);
+        entityManager.persist(flight4);
+        entityManager.persist(flight5);
+        entityManager.persist(flight6);
+        entityManager.persist(flight7);
+        entityManager.persist(flight8);
+        entityManager.persist(flight9);
         entityManager.getTransaction().commit();
         while(!isLoggedIn) {
             loggingIn();
